@@ -1,0 +1,135 @@
+<div class="container-fluid mt-4">
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h1 class="page-title"><i class="fas fa-user-circle"></i> Customer Management</h1>
+    </div>
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="fas fa-check-circle"></i> {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <button class="btn btn-primary" (click)="showForm = !showForm">
+        <i class="fas fa-plus"></i> {{ showForm ? 'Hide Form' : 'Add New Customer' }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="showForm" class="card form-card mb-4">
+    <div class="card-header">
+      <h5>{{ editingId ? 'Edit Customer' : 'Create New Customer' }}</h5>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="saveCustomer()">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Name <span class="text-danger">*</span></label>
+            <input 
+              type="text" 
+              class="form-control" 
+              [(ngModel)]="formData.name" 
+              name="name"
+              placeholder="Enter customer name"
+              required
+            >
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Email</label>
+            <input 
+              type="email" 
+              class="form-control" 
+              [(ngModel)]="formData.email" 
+              name="email"
+              placeholder="Enter email"
+            >
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Phone Number</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              [(ngModel)]="formData.phone_number" 
+              name="phone_number"
+              placeholder="Enter phone number"
+            >
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Password</label>
+            <input 
+              type="password" 
+              class="form-control" 
+              [(ngModel)]="formData.password" 
+              name="password"
+              placeholder="Enter password"
+            >
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-success" [disabled]="loading">
+            <i class="fas fa-save"></i> {{ loading ? 'Saving...' : 'Save' }}
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="resetForm()">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h5>Customers List</h5>
+    </div>
+    <div class="card-body">
+      <div *ngIf="loading" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <div *ngIf="!loading && customers.length === 0" class="alert alert-info">
+        <i class="fas fa-info-circle"></i> No customers found. Create your first customer.
+      </div>
+
+      <div *ngIf="!loading && customers.length > 0" class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let customer of customers">
+              <td>{{ customer.id }}</td>
+              <td>{{ customer.name }}</td>
+              <td>{{ customer.email || '-' }}</td>
+              <td>{{ customer.phone_number || '-' }}</td>
+              <td>
+                <button class="btn btn-sm btn-primary" (click)="editCustomer(customer)">
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="deleteCustomer(customer.id)">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

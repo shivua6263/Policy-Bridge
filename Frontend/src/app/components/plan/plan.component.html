@@ -1,0 +1,126 @@
+<div class="container-fluid mt-4">
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h1 class="page-title"><i class="fas fa-layer-group"></i> Plan Management</h1>
+    </div>
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="fas fa-check-circle"></i> {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <button class="btn btn-primary" (click)="showForm = !showForm">
+        <i class="fas fa-plus"></i> {{ showForm ? 'Hide Form' : 'Add New Plan' }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="showForm" class="card form-card mb-4">
+    <div class="card-header">
+      <h5>{{ editingId ? 'Edit Plan' : 'Create New Plan' }}</h5>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="savePlan()">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Plan Name <span class="text-danger">*</span></label>
+            <input 
+              type="text" 
+              class="form-control" 
+              [(ngModel)]="formData.name" 
+              name="name"
+              placeholder="Enter plan name"
+              required
+            >
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Premium Amount</label>
+            <input 
+              type="number" 
+              class="form-control" 
+              [(ngModel)]="formData.premium" 
+              name="premium"
+              placeholder="Enter premium amount"
+              step="0.01"
+            >
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label class="form-label">Description</label>
+            <textarea 
+              class="form-control" 
+              [(ngModel)]="formData.description" 
+              name="description"
+              placeholder="Enter plan description"
+              rows="3"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-success" [disabled]="loading">
+            <i class="fas fa-save"></i> {{ loading ? 'Saving...' : 'Save' }}
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="resetForm()">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h5>Plans List</h5>
+    </div>
+    <div class="card-body">
+      <div *ngIf="loading" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <div *ngIf="!loading && plans.length === 0" class="alert alert-info">
+        <i class="fas fa-info-circle"></i> No plans found. Create your first plan.
+      </div>
+
+      <div *ngIf="!loading && plans.length > 0" class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Premium</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let plan of plans">
+              <td>{{ plan.id }}</td>
+              <td>{{ plan.name }}</td>
+              <td>{{ plan.premium || '-' }}</td>
+              <td>{{ plan.description || '-' }}</td>
+              <td>
+                <button class="btn btn-sm btn-primary" (click)="editPlan(plan)">
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="deletePlan(plan.id)">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

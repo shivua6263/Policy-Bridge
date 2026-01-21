@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="loginApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Policy Bridge</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .login-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+        }
+
+        .login-header p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .login-body {
+            padding: 40px;
+        }
+
+        .toggle-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: #f5f5f5;
+            padding: 8px;
+            border-radius: 25px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .toggle-btn.active {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group input.ng-invalid.ng-touched {
+            border-color: #dc3545;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .success-message {
+            color: #28a745;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .form-check {
+            margin-bottom: 20px;
+        }
+
+        .form-check input {
+            cursor: pointer;
+        }
+
+        .form-check label {
+            cursor: pointer;
+            user-select: none;
+            margin-bottom: 0;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 30px 0 20px;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #ddd;
+            transform: translateY(-50%);
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 10px;
+            position: relative;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .signup-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .spinner-container {
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-section img {
+            max-width: 100px;
+            height: auto;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        @media (max-width: 576px) {
+            .login-body {
+                padding: 25px;
+            }
+
+            .login-header {
+                padding: 20px;
+            }
+
+            .login-header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container" ng-controller="LoginController">
+        <!-- Header -->
+        <div class="login-header">
+            <div class="logo-section">
+                <img src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=100&h=40&fit=crop" alt="Policy Bridge Logo">
+            </div>
+            <h1>Policy Bridge</h1>
+            <p>{{ currentMode === 'login' ? 'Access Your Account' : 'Join Us Today' }}</p>
+        </div>
+
+        <!-- Body -->
+        <div class="login-body">
+            <!-- Toggle Section -->
+            <div class="toggle-section">
+                <button class="toggle-btn" 
+                    ng-class="{active: userType === 'customer'}" 
+                    ng-click="switchUserType('customer')">
+                    <i class="fas fa-user"></i> Customer
+                </button>
+                <button class="toggle-btn" 
+                    ng-class="{active: userType === 'agent'}" 
+                    ng-click="switchUserType('agent')">
+                    <i class="fas fa-briefcase"></i> Agent
+                </button>
+            </div>
+
+            <!-- Login Tab Toggle -->
+            <div class="toggle-section" style="margin-bottom: 30px;">
+                <button class="toggle-btn" 
+                    ng-class="{active: currentMode === 'login'}" 
+                    ng-click="switchMode('login')">
+                    Login
+                </button>
+                <button class="toggle-btn" 
+                    ng-class="{active: currentMode === 'signup'}" 
+                    ng-click="switchMode('signup')">
+                    Sign Up
+                </button>
+            </div>
+
+            <!-- Alert Messages -->
+            <div class="alert alert-danger" ng-if="errorMessage" ng-bind="errorMessage"></div>
+            <div class="alert alert-success" ng-if="successMessage" ng-bind="successMessage"></div>
+
+            <!-- LOGIN FORM -->
+            <div class="form-section" ng-class="{active: currentMode === 'login'}">
+                <form ng-submit="login()" name="loginForm" novalidate>
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="loginEmail"
+                            name="email" 
+                            ng-model="loginData.email" 
+                            required
+                            placeholder="Enter your email"
+                            class="form-control">
+                        <div class="error-message" ng-if="loginForm.email.$error.required && loginForm.email.$touched">
+                            Email is required
+                        </div>
+                        <div class="error-message" ng-if="loginForm.email.$error.email && loginForm.email.$touched">
+                            Please enter a valid email
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input 
+                            type="password" 
+                            id="loginPassword"
+                            name="password" 
+                            ng-model="loginData.password" 
+                            required
+                            placeholder="Enter your password"
+                            class="form-control">
+                        <div class="error-message" ng-if="loginForm.password.$error.required && loginForm.password.$touched">
+                            Password is required
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button 
+                        type="submit" 
+                        class="submit-btn"
+                        ng-disabled="loginForm.$invalid || isLoading">
+                        <span ng-if="isLoading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            Logging in...
+                        </span>
+                        <span ng-if="!isLoading">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- SIGNUP FORM -->
+            <div class="form-section" ng-class="{active: currentMode === 'signup'}">
+                <form ng-submit="signup()" name="signupForm" novalidate>
+                    <!-- Name Field -->
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input 
+                            type="text" 
+                            id="signupName"
+                            name="name" 
+                            ng-model="signupData.name" 
+                            required
+                            placeholder="Enter your full name"
+                            class="form-control">
+                        <div class="error-message" ng-if="signupForm.name.$error.required && signupForm.name.$touched">
+                            Name is required
+                        </div>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="signupEmail">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="signupEmail"
+                            name="email" 
+                            ng-model="signupData.email" 
+                            required
+                            placeholder="Enter your email"
+                            class="form-control">
+                        <div class="error-message" ng-if="signupForm.email.$error.required && signupForm.email.$touched">
+                            Email is required
+                        </div>
+                        <div class="error-message" ng-if="signupForm.email.$error.email && signupForm.email.$touched">
+                            Please enter a valid email
+                        </div>
+                    </div>
+
+                    <!-- Phone Field -->
+                    <div class="form-group">
+                        <label for="signupPhone">Phone Number</label>
+                        <input 
+                            type="tel" 
+                            id="signupPhone"
+                            name="phone" 
+                            ng-model="signupData.phone_number" 
+                            required
+                            placeholder="Enter your phone number"
+                            class="form-control">
+                        <div class="error-message" ng-if="signupForm.phone.$error.required && signupForm.phone.$touched">
+                            Phone number is required
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input 
+                            type="password" 
+                            id="signupPassword"
+                            name="password" 
+                            ng-model="signupData.password" 
+                            required
+                            minlength="6"
+                            placeholder="Enter your password (min 6 characters)"
+                            class="form-control">
+                        <div class="error-message" ng-if="signupForm.password.$error.required && signupForm.password.$touched">
+                            Password is required
+                        </div>
+                        <div class="error-message" ng-if="signupForm.password.$error.minlength && signupForm.password.$touched">
+                            Password must be at least 6 characters
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password Field -->
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input 
+                            type="password" 
+                            id="confirmPassword"
+                            name="confirmPassword" 
+                            ng-model="signupData.confirmPassword" 
+                            required
+                            placeholder="Confirm your password"
+                            class="form-control">
+                        <div class="error-message" ng-if="signupForm.confirmPassword.$error.required && signupForm.confirmPassword.$touched">
+                            Please confirm your password
+                        </div>
+                        <div class="error-message" ng-if="passwordMismatch && signupForm.confirmPassword.$touched">
+                            Passwords do not match
+                        </div>
+                    </div>
+
+                    <!-- Terms & Conditions -->
+                    <div class="form-check">
+                        <input 
+                            type="checkbox" 
+                            id="agreeTerms" 
+                            name="terms"
+                            ng-model="signupData.agreeTerms" 
+                            class="form-check-input">
+                        <label class="form-check-label" for="agreeTerms">
+                            I agree to the terms and conditions
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button 
+                        type="submit" 
+                        class="submit-btn"
+                        ng-disabled="signupForm.$invalid || isLoading || passwordMismatch">
+                        <span ng-if="isLoading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            Creating Account...
+                        </span>
+                        <span ng-if="!isLoading">
+                            <i class="fas fa-user-plus"></i>
+                            Sign Up
+                        </span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="form-footer">
+                <p><i class="fas fa-shield-alt"></i> Your information is secure with us</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    
+    <!-- App Script -->
+    <script src="app.js"></script>
+</body>
+</html>

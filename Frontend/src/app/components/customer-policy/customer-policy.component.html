@@ -1,0 +1,157 @@
+<div class="container-fluid mt-4">
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h1 class="page-title"><i class="fas fa-tasks"></i> Customer Policy Management</h1>
+    </div>
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="fas fa-check-circle"></i> {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <button class="btn btn-primary" (click)="showForm = !showForm">
+        <i class="fas fa-plus"></i> {{ showForm ? 'Hide Form' : 'Assign New Policy' }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="showForm" class="card form-card mb-4">
+    <div class="card-header">
+      <h5>{{ editingId ? 'Edit Customer Policy' : 'Assign Policy to Customer' }}</h5>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="saveCustomerPolicy()">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Customer <span class="text-danger">*</span></label>
+            <select 
+              class="form-control" 
+              [(ngModel)]="formData.customer" 
+              name="customer"
+              required
+            >
+              <option value="">Select a customer</option>
+              <option *ngFor="let customer of customers" [value]="customer.id">
+                {{ customer.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Policy <span class="text-danger">*</span></label>
+            <select 
+              class="form-control" 
+              [(ngModel)]="formData.policy" 
+              name="policy"
+              required
+            >
+              <option value="">Select a policy</option>
+              <option *ngFor="let policy of policies" [value]="policy.id">
+                {{ policy.policy_number }} - {{ policy.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Start Date</label>
+            <input 
+              type="date" 
+              class="form-control" 
+              [(ngModel)]="formData.start_date" 
+              name="start_date"
+            >
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">End Date</label>
+            <input 
+              type="date" 
+              class="form-control" 
+              [(ngModel)]="formData.end_date" 
+              name="end_date"
+            >
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label class="form-label">Notes</label>
+            <textarea 
+              class="form-control" 
+              [(ngModel)]="formData.notes" 
+              name="notes"
+              placeholder="Enter any notes"
+              rows="3"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-success" [disabled]="loading">
+            <i class="fas fa-save"></i> {{ loading ? 'Saving...' : 'Save' }}
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="resetForm()">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h5>Customer Policies List</h5>
+    </div>
+    <div class="card-body">
+      <div *ngIf="loading" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <div *ngIf="!loading && customerPolicies.length === 0" class="alert alert-info">
+        <i class="fas fa-info-circle"></i> No customer policies found. Assign your first policy.
+      </div>
+
+      <div *ngIf="!loading && customerPolicies.length > 0" class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Customer</th>
+              <th>Policy</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Notes</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cp of customerPolicies">
+              <td>{{ cp.id }}</td>
+              <td>{{ cp.customer_name || cp.customer }}</td>
+              <td>{{ cp.policy_number || cp.policy }}</td>
+              <td>{{ cp.start_date || '-' }}</td>
+              <td>{{ cp.end_date || '-' }}</td>
+              <td>{{ cp.notes || '-' }}</td>
+              <td>
+                <button class="btn btn-sm btn-primary" (click)="editCustomerPolicy(cp)">
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="deleteCustomerPolicy(cp.id)">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

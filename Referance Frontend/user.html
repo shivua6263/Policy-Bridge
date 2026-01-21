@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html ng-app="userApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/user.js"></script>
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #858796;
+            --success-color: #1cc88a;
+            --danger-color: #e74c3c;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #2c3e50 0%, #3498db 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            margin: 0 0.5rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: white !important;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link i {
+            margin-right: 0.5rem;
+        }
+
+        .dropdown-menu {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            border: none;
+        }
+
+        .dropdown-item {
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .dropdown-item i {
+            margin-right: 0.5rem;
+            width: 20px;
+        }
+
+        .container {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            color: white;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 15px 15px 0 0;
+            padding: 1.5rem;
+        }
+
+        .card-header h5 {
+            color: white;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #e3e6f0;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn {
+            border-radius: 10px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3d91 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #1cc88a 0%, #13a770 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #17b372 0%, #0f9563 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(28, 200, 138, 0.4);
+            color: white;
+        }
+
+        .btn-outline-primary {
+            border: 2px solid #667eea;
+            color: #667eea;
+        }
+
+        .btn-outline-primary:hover {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-danger {
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+        }
+
+        .btn-outline-danger:hover {
+            background: #e74c3c;
+            border-color: #e74c3c;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .table-responsive {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table {
+            margin-bottom: 0;
+            color: #2c3e50;
+        }
+
+        .table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .table thead th {
+            border: none;
+            padding: 1.25rem;
+            font-weight: 600;
+            vertical-align: middle;
+        }
+
+        .table tbody tr {
+            border-bottom: 1px solid #e3e6f0;
+            transition: all 0.3s ease;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .table tbody td {
+            padding: 1rem 1.25rem;
+            vertical-align: middle;
+        }
+
+        .table input {
+            border-radius: 8px;
+            border: 1px solid #667eea;
+            padding: 0.5rem 0.75rem;
+        }
+
+        .form-control-sm {
+            padding: 0.4rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        .badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .alert {
+            border-radius: 10px;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                margin-bottom: 1rem;
+            }
+
+            .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .table {
+                font-size: 0.9rem;
+            }
+
+            .table thead th {
+                padding: 0.75rem 0.5rem;
+            }
+
+            .table tbody td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body ng-controller="UserController" class="bg-light">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-cogs"></i> Module Manager
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">
+                            <i class="fas fa-users"></i> User
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customer.html">
+                            <i class="fas fa-user-tie"></i> Customer
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="plan.html">
+                            <i class="fas fa-list-alt"></i> Plan
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="product.html">
+                            <i class="fas fa-cube"></i> Product
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="moreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-ellipsis-h"></i> More
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreDropdown">
+                            <li><a class="dropdown-item" href="invoice.html"><i class="fas fa-file-invoice"></i> Invoice</a></li>
+                            <li><a class="dropdown-item" href="report.html"><i class="fas fa-chart-bar"></i> Report</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1 class="text-center mb-5">
+            <i class="fas fa-users-cog me-3"></i>Manage Your Users
+        </h1>
+
+        <!-- Add User Form -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-user-plus me-2"></i>Add New User</h5>
+            </div>
+            <div class="card-body">
+                <form ng-submit="addUser()" class="row g-3">
+                    <div class="col-md-6">
+                        <label for="name" class="form-label"><i class="fas fa-user me-2"></i>Name</label>
+                        <input type="text" class="form-control" id="name" ng-model="newUser.name" placeholder="Enter full name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label"><i class="fas fa-envelope me-2"></i>Email</label>
+                        <input type="email" class="form-control" id="email" ng-model="newUser.email" placeholder="Enter email address" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="phone" class="form-label"><i class="fas fa-phone me-2"></i>Phone</label>
+                        <input type="tel" class="form-control" id="phone" ng-model="newUser.phone" placeholder="Enter phone number">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="address" class="form-label"><i class="fas fa-map-marker-alt me-2"></i>Address</label>
+                        <input type="text" class="form-control" id="address" ng-model="newUser.address" placeholder="Enter address">
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus-circle me-2"></i>Add User
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Users Table -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-table me-2"></i>User List</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-id-badge me-2"></i>ID</th>
+                                <th><i class="fas fa-user me-2"></i>Name</th>
+                                <th><i class="fas fa-envelope me-2"></i>Email</th>
+                                <th><i class="fas fa-phone me-2"></i>Phone</th>
+                                <th><i class="fas fa-map-marker-alt me-2"></i>Address</th>
+                                <th><i class="fas fa-calendar me-2"></i>Created</th>
+                                <th><i class="fas fa-cogs me-2"></i>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="user in users">
+                                <td><strong>{{ user.id }}</strong></td>
+                                <td>
+                                    <span ng-hide="user.editing">{{ user.name }}</span>
+                                    <input type="text" class="form-control form-control-sm" ng-model="user.name" ng-show="user.editing">
+                                </td>
+                                <td>
+                                    <span ng-hide="user.editing">{{ user.email }}</span>
+                                    <input type="email" class="form-control form-control-sm" ng-model="user.email" ng-show="user.editing">
+                                </td>
+                                <td>
+                                    <span ng-hide="user.editing">{{ user.phone }}</span>
+                                    <input type="tel" class="form-control form-control-sm" ng-model="user.phone" ng-show="user.editing">
+                                </td>
+                                <td>
+                                    <span ng-hide="user.editing">{{ user.address }}</span>
+                                    <input type="text" class="form-control form-control-sm" ng-model="user.address" ng-show="user.editing">
+                                </td>
+                                <td>
+                                    <small class="text-muted">{{ user.created_at | date: 'short' }}</small>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary me-2" ng-click="editUser(user)" ng-hide="user.editing">
+                                        <i class="fas fa-edit me-1"></i>Edit
+                                    </button>
+                                    <button class="btn btn-sm btn-success me-2" ng-click="saveUser(user)" ng-show="user.editing">
+                                        <i class="fas fa-save me-1"></i>Save
+                                    </button>
+                                    <button class="btn btn-sm btn-secondary me-2" ng-click="cancelEdit(user)" ng-show="user.editing">
+                                        <i class="fas fa-times me-1"></i>Cancel
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" ng-click="deleteUser(user)">
+                                        <i class="fas fa-trash me-1"></i>Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

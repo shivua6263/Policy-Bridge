@@ -1,0 +1,78 @@
+Project Summary: Insurance Platform
+
+Project Description:
+This platform allows users to buy insurance policies from various insurance companies. The backend is built using Django and an SQLite3 database, with APIs to handle user, customer, insurance, policy, and agent management. The system supports customer subscriptions, agent referrals, and manages multiple types of insurance.
+
+Tech Stack:
+
+Backend Framework: Django
+
+Database: SQLite3
+
+Authentication: Django's built-in authentication system
+
+API Framework: Django Rest Framework (DRF) for building RESTful APIs
+
+Database Tables:
+
+User Table (Admin Users)
+
+Fields: id, name, email, password, phone_number, role, created_at
+
+Description: Stores admin users who manage the platform.
+
+Customer Table
+
+Fields: id, name, email, password, phone_number, role, created_at
+
+Description: Stores customer details. Customers can browse and purchase policies.
+
+Plan Table
+
+Fields: id, user_id, plan_name, plan_description, price, created_at
+
+Description: Stores the insurance plans available for customers to purchase.
+
+Insurance Company Table
+
+Fields: id, name, address, contact_info, website, created_at
+
+Description: Stores details about insurance companies available on the platform.
+
+Insurance Type Table
+
+Fields: id, type_name, description, created_at
+
+Description: Stores types of insurance (e.g., health, car, life).
+
+Policy Table
+
+Fields: id, insurance_type_id, insurance_company_id, policy_name, policy_details, coverage, premium_amount, created_at
+
+Description: Stores the policies available, including coverage and premium details.
+
+Agent Table
+
+Fields: id, name, email, phone_number, referral_code, commission_percentage, created_at
+
+Description: Stores agent details who can refer customers to policies.
+
+Customer Policy Table
+
+Fields: id, customer_id, policy_id, agent_id, subscription_date, expiry_date, premium_amount_paid, status
+
+Description: Stores the policies bought by customers, linking them to the referring agent.
+
+Platform Features:
+
+User Roles: Admin, Super Admin, Customer
+
+Referrals: Agents refer customers using unique referral codes, earning commissions.
+
+Subscription Management: Customers can subscribe to and manage insurance policies.
+
+API Integration: Django REST Framework is used to expose backend functionality through APIs.
+
+Database Design: Uses an SQLite3 database with normalized tables for scalability.
+
+

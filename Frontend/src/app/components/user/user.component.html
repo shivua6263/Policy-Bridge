@@ -1,0 +1,138 @@
+<div class="container-fluid mt-4">
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h1 class="page-title"><i class="fas fa-user-tie"></i> User Management</h1>
+    </div>
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="fas fa-check-circle"></i> {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <button class="btn btn-primary" (click)="showForm = !showForm">
+        <i class="fas fa-plus"></i> {{ showForm ? 'Hide Form' : 'Add New User' }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="showForm" class="card form-card mb-4">
+    <div class="card-header">
+      <h5>{{ editingId ? 'Edit User' : 'Create New User' }}</h5>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="saveUser()">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Name <span class="text-danger">*</span></label>
+            <input 
+              type="text" 
+              class="form-control" 
+              [(ngModel)]="formData.name" 
+              name="name"
+              placeholder="Enter name"
+              required
+            >
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Email <span class="text-danger">*</span></label>
+            <input 
+              type="email" 
+              class="form-control" 
+              [(ngModel)]="formData.email" 
+              name="email"
+              placeholder="Enter email"
+              required
+            >
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Phone</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              [(ngModel)]="formData.phone" 
+              name="phone"
+              placeholder="Enter phone number"
+            >
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Username</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              [(ngModel)]="formData.username" 
+              name="username"
+              placeholder="Enter username"
+            >
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-success" [disabled]="loading">
+            <i class="fas fa-save"></i> {{ loading ? 'Saving...' : 'Save' }}
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="resetForm()">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h5>Users List</h5>
+    </div>
+    <div class="card-body">
+      <div *ngIf="loading" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <div *ngIf="!loading && users.length === 0" class="alert alert-info">
+        <i class="fas fa-info-circle"></i> No users found. Create your first user.
+      </div>
+
+      <div *ngIf="!loading && users.length > 0" class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Username</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.id }}</td>
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.phone || '-' }}</td>
+              <td>{{ user.username || '-' }}</td>
+              <td>
+                <button class="btn btn-sm btn-primary" (click)="editUser(user)">
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="deleteUser(user.id)">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

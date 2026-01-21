@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html ng-app="loginApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Management - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .login-container {
+            max-width: 450px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .login-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            background: white;
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+
+        .login-header h2 {
+            margin: 0 0 0.5rem 0;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .login-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .login-body {
+            padding: 2.5rem 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            border: 2px solid #e3e6f0;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            background: #f8f9fa;
+        }
+
+        .form-control:focus {
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        .form-control::placeholder {
+            color: #adb5bd;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .btn-login:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3d91 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+
+        .btn-login:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .alert {
+            border-radius: 10px;
+            border: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-check {
+            margin-top: 1rem;
+        }
+
+        .form-check-input {
+            border: 2px solid #e3e6f0;
+            border-radius: 5px;
+            margin-top: 0.3rem;
+        }
+
+        .form-check-input:checked {
+            background-color: #667eea;
+            border-color: #667eea;
+        }
+
+        .form-check-label {
+            color: #2c3e50;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+
+        .login-footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .input-icon {
+            position: relative;
+        }
+
+        .input-icon i {
+            position: absolute;
+            left: 1rem;
+            top: 2.8rem;
+            color: #adb5bd;
+        }
+
+        .input-icon input {
+            padding-left: 2.5rem !important;
+        }
+
+        .spinner-border {
+            width: 1rem;
+            height: 1rem;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body ng-controller="LoginCtrl">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h2><i class="fas fa-shield-alt"></i> Insurance Manager</h2>
+                <p>Secure Access to Your Policy Management System</p>
+            </div>
+
+            <div class="login-body">
+                <!-- Error Alert -->
+                <div ng-if="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+                    <button type="button" class="btn-close" ng-click="errorMessage = null"></button>
+                </div>
+
+                <!-- Success Alert -->
+                <div ng-if="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle"></i> {{ successMessage }}
+                    <button type="button" class="btn-close" ng-click="successMessage = null"></button>
+                </div>
+
+                <form ng-submit="login()">
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label class="form-label" for="email">
+                            <i class="fas fa-envelope"></i> Email Address
+                        </label>
+                        <div class="input-icon">
+                            <i class="fas fa-envelope"></i>
+                            <input 
+                                type="email" 
+                                class="form-control" 
+                                id="email"
+                                ng-model="loginData.email" 
+                                placeholder="Enter your email"
+                                required>
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label class="form-label" for="password">
+                            <i class="fas fa-lock"></i> Password
+                        </label>
+                        <div class="input-icon">
+                            <i class="fas fa-lock"></i>
+                            <input 
+                                type="password" 
+                                class="form-control" 
+                                id="password"
+                                ng-model="loginData.password" 
+                                placeholder="Enter your password"
+                                required>
+                        </div>
+                    </div>
+
+                    <!-- Remember Me -->
+                    <div class="form-check">
+                        <input 
+                            type="checkbox" 
+                            class="form-check-input" 
+                            id="rememberMe"
+                            ng-model="loginData.rememberMe">
+                        <label class="form-check-label" for="rememberMe">
+                            Remember me on this device
+                        </label>
+                    </div>
+
+                    <!-- Forgot Password Link -->
+                    <div style="text-align: right; margin-top: 0.5rem; margin-bottom: 1rem;">
+                        <a href="forgot-password.html" style="color: #667eea; text-decoration: none; font-size: 0.9rem; font-weight: 500;">
+                            <i class="fas fa-key"></i> Forgot Password?
+                        </a>
+                    </div>
+
+                    <!-- Login Button -->
+                    <button 
+                        type="submit" 
+                        class="btn-login"
+                        ng-disabled="loginForm.$invalid || isLoading">
+                        <span ng-if="!isLoading">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </span>
+                        <span ng-if="isLoading">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Logging in...
+                        </span>
+                    </button>
+                </form>
+
+                <!-- Demo Credentials Info -->
+                <div class="alert alert-info mt-3" role="alert">
+                    <i class="fas fa-info-circle"></i> <strong>Demo:</strong> Use existing credentials or create a new user first.
+                </div>
+            </div>
+
+            <div class="login-footer">
+                <p>&copy; 2026 Insurance Management System. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var app = angular.module('loginApp', []);
+
+        app.controller('LoginCtrl', function($scope, $http, $window) {
+            $scope.loginData = {
+                email: '',
+                password: '',
+                rememberMe: false
+            };
+
+            $scope.isLoading = false;
+            $scope.errorMessage = null;
+            $scope.successMessage = null;
+
+            // Check if already logged in
+            $scope.checkSession = function() {
+                var userData = sessionStorage.getItem('userData');
+                if (userData) {
+                    $window.location.href = 'frontend/index.html';
+                }
+            };
+
+            $scope.login = function() {
+                $scope.isLoading = true;
+                $scope.errorMessage = null;
+                $scope.successMessage = null;
+
+                $http.post('http://127.0.0.1:8000/api/login/', {
+                    email: $scope.loginData.email,
+                    password: $scope.loginData.password
+                }).then(function(response) {
+                    $scope.successMessage = 'Login successful!';
+                    
+                    // Store user data in session storage
+                    var userData = {
+                        id: response.data.id,
+                        name: response.data.name,
+                        email: response.data.email
+                    };
+                    sessionStorage.setItem('userData', JSON.stringify(userData));
+
+                    // If remember me is checked, also store in local storage
+                    if ($scope.loginData.rememberMe) {
+                        localStorage.setItem('userData', JSON.stringify(userData));
+                    }
+
+                    // Redirect to dashboard after 1 second
+                    setTimeout(function() {
+                        $window.location.href = 'frontend/index.html';
+                    }, 1000);
+                }).catch(function(error) {
+                    $scope.isLoading = false;
+                    if (error.status === 401) {
+                        $scope.errorMessage = 'Invalid email or password. Please try again.';
+                    } else if (error.status === 400) {
+                        $scope.errorMessage = 'Please enter both email and password.';
+                    } else {
+                        $scope.errorMessage = 'An error occurred. Please try again later.';
+                    }
+                });
+            };
+
+            // Check session on page load
+            $scope.checkSession();
+        });
+    </script>
+</body>
+</html>
