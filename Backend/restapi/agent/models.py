@@ -7,6 +7,7 @@ class Agent(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255, blank=True, null=True)
     phone_number = models.CharField(max_length=15, unique=True)
+    profile_image = models.CharField(max_length=255, null=True, blank=True)
     referral_code = models.CharField(max_length=255, unique=True)
     commission_percentage = models.DecimalField(max_digits=5, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)

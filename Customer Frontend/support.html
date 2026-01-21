@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Support - Policy Bridge</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand" href="index.html">
+                <div class="logo-container">
+                    <img src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=150&h=50&fit=crop"
+                         alt="Policy Bridge Logo"
+                         class="logo-img">
+                </div>
+                <span class="brand-text ms-2">Policy Bridge</span>
+            </a>
+
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarContent" aria-controls="navbarContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Content -->
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <!-- Search Bar -->
+                <form class="d-flex mx-auto search-form">
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0">
+                            <i class="fas fa-search text-muted"></i>
+                        </span>
+                        <input class="form-control border-start-0"
+                               type="search"
+                               placeholder="Search for insurance policies..."
+                               aria-label="Search">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </form>
+
+                <!-- User Menu -->
+                <div class="d-flex align-items-center mt-3 mt-lg-0">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle me-2" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user me-1"></i> <span id="userNameDisplay">User</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item" href="account.html">
+                                    <i class="fas fa-user-circle me-2"></i> My Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="account.html#policies">
+                                    <i class="fas fa-file-alt me-2"></i> My Policies
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="claims.html">
+                                    <i class="fas fa-handshake me-2"></i> My Claims
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="#" onclick="logoutUser(event)">
+                                    <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 text-white">
+                    <h1 class="display-4 fw-bold mb-4">How Can We Help You?</h1>
+                    <p class="lead mb-4">Get instant support for all your insurance queries. Our dedicated team is here to assist you 24/7.</p>
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-light btn-lg" onclick="scrollToSection('contact-form')">
+                            <i class="fas fa-envelope me-2"></i> Contact Support
+                        </button>
+                        <button class="btn btn-outline-light btn-lg" onclick="scrollToSection('faq')">
+                            <i class="fas fa-question-circle me-2"></i> View FAQs
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="hero-image-container">
+                        <img src="https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?w=400&h=300&fit=crop"
+                             alt="Customer Support"
+                             class="img-fluid rounded-3 shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Options Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12">
+                    <h2 class="fw-bold display-5">Choose Your Support Channel</h2>
+                    <p class="text-muted lead">Multiple ways to get the help you need</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <!-- Live Chat -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm support-card">
+                        <div class="card-body text-center p-4">
+                            <div class="support-icon bg-success bg-gradient text-white rounded-3 mb-3 mx-auto">
+                                <i class="fas fa-comments fa-3x p-4"></i>
+                            </div>
+                            <h4 class="card-title">Live Chat</h4>
+                            <p class="card-text text-muted">Get instant help from our support agents through live chat</p>
+                            <button class="btn btn-success" onclick="startLiveChat()">
+                                <i class="fas fa-comments me-2"></i> Start Chat
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email Support -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm support-card">
+                        <div class="card-body text-center p-4">
+                            <div class="support-icon bg-primary bg-gradient text-white rounded-3 mb-3 mx-auto">
+                                <i class="fas fa-envelope fa-3x p-4"></i>
+                            </div>
+                            <h4 class="card-title">Email Support</h4>
+                            <p class="card-text text-muted">Send us detailed queries and we'll respond within 24 hours</p>
+                            <button class="btn btn-primary" onclick="scrollToSection('contact-form')">
+                                <i class="fas fa-envelope me-2"></i> Send Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phone Support -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm support-card">
+                        <div class="card-body text-center p-4">
+                            <div class="support-icon bg-warning bg-gradient text-white rounded-3 mb-3 mx-auto">
+                                <i class="fas fa-phone fa-3x p-4"></i>
+                            </div>
+                            <h4 class="card-title">Phone Support</h4>
+                            <p class="card-text text-muted">Speak directly with our experts for immediate assistance</p>
+                            <button class="btn btn-warning" onclick="callSupport()">
+                                <i class="fas fa-phone me-2"></i> Call Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="py-5" id="contact-form">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="card border-0 shadow-lg">
+                        <div class="card-header bg-primary text-white text-center py-4">
+                            <h3 class="mb-0"><i class="fas fa-envelope me-2"></i> Contact Our Support Team</h3>
+                        </div>
+                        <div class="card-body p-5">
+                            <form id="supportForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="firstName" class="form-label">First Name *</label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="lastName" class="form-label">Last Name *</label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address *</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="subject" class="form-label">Subject *</label>
+                                    <select class="form-select" id="subject" required>
+                                        <option value="">Choose a subject...</option>
+                                        <option value="policy">Policy Related</option>
+                                        <option value="claims">Claims Assistance</option>
+                                        <option value="billing">Billing & Payments</option>
+                                        <option value="technical">Technical Issues</option>
+                                        <option value="account">Account Management</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="priority" class="form-label">Priority Level</label>
+                                    <select class="form-select" id="priority">
+                                        <option value="low">Low - General inquiry</option>
+                                        <option value="medium" selected>Medium - Standard support</option>
+                                        <option value="high">High - Urgent assistance needed</option>
+                                        <option value="critical">Critical - Emergency situation</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Message *</label>
+                                    <textarea class="form-control" id="message" rows="5" placeholder="Please describe your issue in detail..." required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="attachments" class="form-label">Attachments (optional)</label>
+                                    <input type="file" class="form-control" id="attachments" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx">
+                                    <div class="form-text">Supported formats: JPG, PNG, PDF, DOC, DOCX (Max 5MB each)</div>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="newsletter" checked>
+                                    <label class="form-check-label" for="newsletter">
+                                        I agree to receive updates about my support request
+                                    </label>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg px-5">
+                                        <i class="fas fa-paper-plane me-2"></i> Submit Support Request
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-5 bg-light" id="faq">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12">
+                    <h2 class="fw-bold display-5">Frequently Asked Questions</h2>
+                    <p class="text-muted lead">Find quick answers to common questions</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="accordion" id="faqAccordion">
+                        <!-- Policy Related FAQs -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    <i class="fas fa-file-alt me-2 text-primary"></i> How do I purchase an insurance policy?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    To purchase a policy, browse our policy categories, select the insurance type that suits your needs, compare different plans from various insurers, and click "Buy Now" to complete the purchase process. You'll receive a confirmation email with your policy details.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    <i class="fas fa-handshake me-2 text-success"></i> How do I file an insurance claim?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    You can file a claim through your account dashboard under "My Claims" section. Select the relevant policy, provide claim details, upload supporting documents, and submit. Our claims team will review and process your claim within 24-48 hours.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    <i class="fas fa-credit-card me-2 text-warning"></i> What payment methods do you accept?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    We accept all major credit/debit cards (Visa, MasterCard, American Express), net banking, UPI payments, and digital wallets. All transactions are secured with 256-bit SSL encryption.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Account Related FAQs -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    <i class="fas fa-user-circle me-2 text-info"></i> How do I update my account information?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Go to your account dashboard, click on "My Profile", and update your personal information, contact details, or profile picture. Changes are saved automatically.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                    <i class="fas fa-key me-2 text-danger"></i> I forgot my password. How can I reset it?
+                                </button>
+                            </h2>
+                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Click on "Forgot Password" on the login page, enter your registered email address, and we'll send you a password reset link. Follow the instructions in the email to create a new password.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Technical FAQs -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                                    <i class="fas fa-mobile-alt me-2 text-secondary"></i> Is the platform mobile-friendly?
+                                </button>
+                            </h2>
+                            <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Yes, our platform is fully responsive and works seamlessly on all devices including smartphones, tablets, and desktops. You can access all features from your mobile browser.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
+                                    <i class="fas fa-shield-alt me-2 text-success"></i> Is my data secure?
+                                </button>
+                            </h2>
+                            <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Absolutely. We use industry-standard encryption, secure servers, and comply with all data protection regulations. Your personal information and payment details are never stored in plain text.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12">
+                    <h2 class="fw-bold display-5">Get In Touch</h2>
+                    <p class="lead">Multiple ways to reach our support team</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <div class="contact-icon mb-3">
+                            <i class="fas fa-phone fa-3x"></i>
+                        </div>
+                        <h4>Phone Support</h4>
+                        <p class="mb-2">24/7 Customer Care</p>
+                        <a href="tel:+18001234567" class="text-white text-decoration-none fw-bold">+1 (800) 123-4567</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <div class="contact-icon mb-3">
+                            <i class="fas fa-envelope fa-3x"></i>
+                        </div>
+                        <h4>Email Support</h4>
+                        <p class="mb-2">Response within 24 hours</p>
+                        <a href="mailto:support@policybridge.com" class="text-white text-decoration-none fw-bold">support@policybridge.com</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <div class="contact-icon mb-3">
+                            <i class="fas fa-map-marker-alt fa-3x"></i>
+                        </div>
+                        <h4>Office Address</h4>
+                        <p class="mb-2">Visit our headquarters</p>
+                        <address class="text-white">
+                            123 Insurance Plaza<br>
+                            New York, NY 10001<br>
+                            United States
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="logo-container mb-3">
+                        <img src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=150&h=50&fit=crop"
+                             alt="Policy Bridge Logo"
+                             class="logo-img">
+                        <span class="brand-text ms-2">Policy Bridge</span>
+                    </div>
+                    <p class="text-muted">Making insurance simple, transparent, and accessible for everyone.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h5 class="footer-heading mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="footer-link">Home</a></li>
+                        <li class="mb-2"><a href="policies.html" class="footer-link">Policies</a></li>
+                        <li class="mb-2"><a href="agents.html" class="footer-link">Agents</a></li>
+                        <li class="mb-2"><a href="claims.html" class="footer-link">Claims</a></li>
+                        <li class="mb-2"><a href="account.html" class="footer-link">Account</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h5 class="footer-heading mb-3">Support</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#faq" class="footer-link">FAQs</a></li>
+                        <li class="mb-2"><a href="#contact-form" class="footer-link">Contact Us</a></li>
+                        <li class="mb-2"><a href="#" class="footer-link">Help Center</a></li>
+                        <li class="mb-2"><a href="#" class="footer-link">Live Chat</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5 class="footer-heading mb-3">Newsletter</h5>
+                    <p class="text-muted">Stay updated with the latest insurance tips and offers.</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Enter your email">
+                        <button class="btn btn-primary" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0 text-muted">&copy; 2024 Policy Bridge. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-muted me-3">Privacy Policy</a>
+                    <a href="#" class="text-muted me-3">Terms of Service</a>
+                    <a href="#" class="text-muted">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Config Script -->
+    <script src="config.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script src="auth-manager.js"></script>
+    <script src="support-manager.js"></script>
+</body>
+</html>

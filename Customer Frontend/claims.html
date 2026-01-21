@@ -84,9 +84,10 @@
                             <form id="claim-form">
                                 <div class="row g-3">
                                     <div class="col-md-6">
-                                        <label for="policy-number" class="form-label">Policy Number *</label>
-                                        <input type="text" class="form-control" id="policy-number" 
-                                               placeholder="e.g., POL-123456789" required>
+                                        <label for="policy-number" class="form-label">Select Policy *</label>
+                                        <select class="form-select" id="policy-number" required>
+                                            <option value="">Loading policies...</option>
+                                        </select>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="claim-type" class="form-label">Claim Type *</label>
@@ -195,32 +196,29 @@
                     <!-- Claim Statistics -->
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-body p-4">
-                            <h5 class="mb-4">Our Claim Statistics</h5>
+                            <h5 class="mb-4">Your Claim Statistics</h5>
                             <div class="mb-3">
                                 <div class="d-flex justify-content-between mb-1">
-                                    <span>Claims Settled</span>
-                                    <span class="fw-bold">98.5%</span>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" style="width: 98.5%"></div>
+                                    <span>Total Claims</span>
+                                    <span class="fw-bold" id="total-claims-count">0</span>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <div class="d-flex justify-content-between mb-1">
-                                    <span>Average Settlement Time</span>
-                                    <span class="fw-bold">7 Days</span>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-primary" style="width: 85%"></div>
+                                    <span>Pending Claims</span>
+                                    <span class="fw-bold text-warning" id="pending-claims-count">0</span>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <div class="d-flex justify-content-between mb-1">
-                                    <span>Online Claim Process</span>
-                                    <span class="fw-bold">100%</span>
+                                    <span>Approved Claims</span>
+                                    <span class="fw-bold text-success" id="approved-claims-count">0</span>
                                 </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-info" style="width: 100%"></div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Paid Claims</span>
+                                    <span class="fw-bold text-primary" id="paid-claims-count">0</span>
                                 </div>
                             </div>
                         </div>
@@ -250,54 +248,29 @@
                     <div class="card border-0 shadow-sm">
                         <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
                             <h5 class="mb-0"><i class="fas fa-history me-2"></i>Your Recent Claims</h5>
-                            <button class="btn btn-sm btn-outline-primary">
-                                <i class="fas fa-download me-1"></i> Download All
-                            </button>
+                            <div class="d-flex gap-2">
+                                <select class="form-select form-select-sm" id="status-filter" style="width: auto;">
+                                    <option value="">All Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="under_review">Under Review</option>
+                                    <option value="approved">Approved</option>
+                                    <option value="rejected">Rejected</option>
+                                    <option value="paid">Paid</option>
+                                    <option value="closed">Closed</option>
+                                </select>
+                                <button class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-download me-1"></i> Download All
+                                </button>
+                            </div>
                         </div>
                         <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table table-hover mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Claim ID</th>
-                                            <th>Policy</th>
-                                            <th>Type</th>
-                                            <th>Amount</th>
-                                            <th>Date Filed</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>CLM-2024-001</strong></td>
-                                            <td>HLT/789456123</td>
-                                            <td>Health</td>
-                                            <td>₹1,25,000</td>
-                                            <td>Jan 15, 2024</td>
-                                            <td><span class="claim-status approved">Approved</span></td>
-                                            <td><button class="btn btn-sm btn-outline-primary">View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>CLM-2024-002</strong></td>
-                                            <td>MC/456789123</td>
-                                            <td>Motor</td>
-                                            <td>₹45,000</td>
-                                            <td>Jan 20, 2024</td>
-                                            <td><span class="claim-status pending">Under Review</span></td>
-                                            <td><button class="btn btn-sm btn-outline-primary">View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>CLM-2024-003</strong></td>
-                                            <td>LIF/123456789</td>
-                                            <td>Life</td>
-                                            <td>₹50,00,000</td>
-                                            <td>Feb 01, 2024</td>
-                                            <td><span class="claim-status pending">Documents Required</span></td>
-                                            <td><button class="btn btn-sm btn-outline-primary">View</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div id="claims-container" class="p-4">
+                                <div class="text-center py-4">
+                                    <div class="spinner-border text-primary" role="status" id="claims-loader">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <p class="text-muted mt-2">Loading claims...</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -447,6 +420,10 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Config Script -->
+    <script src="config.js"></script>
+    
     <script src="auth-manager.js"></script>
     <script>
         // Require authentication
@@ -455,6 +432,7 @@
         // Display user info
         authManager.displayUserInNavbar();
     </script>
+    <script src="claims-manager.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

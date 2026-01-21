@@ -1171,7 +1171,7 @@ function loadUserProfile() {
     if (!currentUser) return;
     
     const user = JSON.parse(currentUser);
-    const backendUrl = 'http://localhost:8000'; // Update with your backend URL
+    const backendUrl = CONFIG.BACKEND_URL; // Update with your backend URL
     
     // Update profile name and email
     const profileNameEl = document.getElementById('profileName');
@@ -1342,7 +1342,7 @@ function uploadProfileImage(base64Data, fileType) {
     }
     
     const user = JSON.parse(currentUser);
-    const backendUrl = 'http://localhost:8000'; // Update with your backend URL
+    const backendUrl = CONFIG.BACKEND_URL; // Update with your backend URL
     const apiUrl = `${backendUrl}/api/customer/${user.id}/profile-image/`;
     
     // Determine file extension

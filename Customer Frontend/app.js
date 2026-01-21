@@ -13,7 +13,7 @@ app.controller('LoginController', ['$scope', '$http', '$window', function($scope
     $scope.passwordMismatch = false;
 
     // API Base URL - Match your backend server
-    const API_BASE_URL = 'http://localhost:8000/api'; // Change this to your actual backend URL
+    const API_BASE_URL = CONFIG.API_BASE_URL; // Centralized configuration
 
     // ========== MODE AND TYPE SWITCHING ==========
     $scope.switchMode = function(mode) {

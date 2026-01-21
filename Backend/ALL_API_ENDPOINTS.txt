@@ -530,3 +530,58 @@ NOTES:
   * 404 Not Found - Resource not found
 - Backend URL: http://127.0.0.1:8000/
 ================================================================================
+
+================================================================================
+9. SUPPORT TICKET API
+================================================================================
+
+GET All Support Tickets
+  URL: http://127.0.0.1:8000/api/support-tickets/
+  Method: GET
+  Query Parameters:
+    - customer=<id> (filter by customer)
+    - status=<status> (open, in_progress, resolved, closed)
+    - subject=<subject> (policy, claims, billing, technical, account, other)
+
+CREATE Support Ticket
+  URL: http://127.0.0.1:8000/api/support-tickets/
+  Method: POST
+  Content-Type: application/json
+  Request Body:
+  {
+    "customer": 1,
+    "subject": "policy",
+    "priority": "medium",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john@example.com",
+    "phone": "9876543210",
+    "message": "Issue with my policy",
+    "attachments": []
+  }
+
+Add Response to Ticket
+  URL: http://127.0.0.1:8000/api/support-tickets/<id>/add_response/
+  Method: POST
+
+Update Ticket Status
+  URL: http://127.0.0.1:8000/api/support-tickets/<id>/update_status/
+  Method: PATCH
+
+Get My Tickets
+  URL: http://127.0.0.1:8000/api/support-tickets/my_tickets/
+  Method: GET
+
+================================================================================
+QUICK REFERENCE - ALL ENDPOINTS (UPDATED)
+================================================================================
+
+Support Tickets:
+  GET    http://127.0.0.1:8000/api/support-tickets/
+  POST   http://127.0.0.1:8000/api/support-tickets/
+  GET    http://127.0.0.1:8000/api/support-tickets/<id>/
+  PUT    http://127.0.0.1:8000/api/support-tickets/<id>/
+  DELETE http://127.0.0.1:8000/api/support-tickets/<id>/
+  POST   http://127.0.0.1:8000/api/support-tickets/<id>/add_response/
+  PATCH  http://127.0.0.1:8000/api/support-tickets/<id>/update_status/
+  GET    http://127.0.0.1:8000/api/support-tickets/my_tickets/

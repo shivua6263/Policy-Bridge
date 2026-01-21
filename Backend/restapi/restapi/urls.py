@@ -30,6 +30,8 @@ urlpatterns = [
     path('api/', include('insurancetype.urls')),
     path('api/', include('plan.urls')),
     path('api/', include('policy.urls')),
+    path('api/claims/', include('claims.urls')),
+    path('api/', include('supportticket.urls')),
 ]
 
 # Serve media files during development

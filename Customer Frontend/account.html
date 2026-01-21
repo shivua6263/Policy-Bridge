@@ -34,7 +34,7 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="account.html"><i class="fas fa-user me-2"></i>My Profile</a></li>
-                            <li><a class="dropdown-item" href="policies.html"><i class="fas fa-file-alt me-2"></i>My Policies</a></li>
+                            <li><a class="dropdown-item" href="account.html#policies"><i class="fas fa-file-alt me-2"></i>My Policies</a></li>
                             <li><a class="dropdown-item" href="claims.html"><i class="fas fa-file me-2"></i>My Claims</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#" onclick="authManager.logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
@@ -80,11 +80,11 @@
                             <div class="badge bg-success mb-3">Verified Account</div>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item active"><a href="#" class="text-white text-decoration-none"><i class="fas fa-user me-2"></i> My Profile</a></li>
-                            <li class="list-group-item"><a href="#" class="text-dark text-decoration-none"><i class="fas fa-file-alt me-2"></i> My Policies</a></li>
-                            <li class="list-group-item"><a href="#" class="text-dark text-decoration-none"><i class="fas fa-file me-2"></i> My Claims</a></li>
-                            <li class="list-group-item"><a href="#" class="text-dark text-decoration-none"><i class="fas fa-credit-card me-2"></i> Payment History</a></li>
-                            <li class="list-group-item"><a href="#" class="text-dark text-decoration-none"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                            <li class="list-group-item active"><a href="#" class="text-white text-decoration-none" onclick="showAccountSection('profile')"><i class="fas fa-user me-2"></i> My Profile</a></li>
+                            <li class="list-group-item"><a href="#" class="text-dark text-decoration-none" onclick="showAccountSection('policies')"><i class="fas fa-file-alt me-2"></i> My Policies</a></li>
+                            <li class="list-group-item"><a href="#" class="text-dark text-decoration-none" onclick="showAccountSection('claims')"><i class="fas fa-file me-2"></i> My Claims</a></li>
+                            <li class="list-group-item"><a href="#" class="text-dark text-decoration-none" onclick="showAccountSection('payments')"><i class="fas fa-credit-card me-2"></i> Payment History</a></li>
+                            <li class="list-group-item"><a href="#" class="text-dark text-decoration-none" onclick="showAccountSection('settings')"><i class="fas fa-cog me-2"></i> Settings</a></li>
                         </ul>
                     </div>
                 </div>
@@ -92,61 +92,119 @@
                     <div class="row g-3 mb-4">
                         <div class="col-md-4">
                             <div class="card border-0 shadow-sm text-center p-3">
-                                <div class="display-6 fw-bold text-primary">5</div>
+                                <div class="display-6 fw-bold text-primary" id="activePoliciesCount">0</div>
                                 <p class="text-muted mb-0">Active Policies</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card border-0 shadow-sm text-center p-3">
-                                <div class="display-6 fw-bold text-success">2</div>
-                                <p class="text-muted mb-0">Pending Claims</p>
+                                <div class="display-6 fw-bold text-success" id="totalClaimsCount">0</div>
+                                <p class="text-muted mb-0">Total Claims</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card border-0 shadow-sm text-center p-3">
-                                <div class="display-6 fw-bold text-warning">3</div>
-                                <p class="text-muted mb-0">Renewals Due</p>
+                                <div class="display-6 fw-bold text-info" id="totalPaymentsCount">₹0</div>
+                                <p class="text-muted mb-0">Total Payments</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0"><i class="fas fa-file-alt me-2"></i>My Recent Policies</h5>
-                            <a href="policies.html" class="btn btn-sm btn-outline-primary">View All</a>
+                    <!-- Profile Update Form -->
+                    <div class="card border-0 shadow-sm mb-4 account-section" id="profile-section">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-user-edit me-2"></i>Update Profile</h5>
                         </div>
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table table-hover mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Policy Name</th>
-                                            <th>Policy Number</th>
-                                            <th>Premium</th>
-                                            <th>Renewal Date</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><div class="d-flex align-items-center"><div class="policy-icon bg-primary-subtle text-primary rounded-2 me-2" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-heartbeat"></i></div><span>Comprehensive Health Plan</span></div></td>
-                                            <td><small>HLT/2024/789456</small></td>
-                                            <td>₹8,500/yr</td>
-                                            <td>Mar 15, 2025</td>
-                                            <td><span class="badge bg-success">Active</span></td>
-                                            <td><button class="btn btn-sm btn-outline-primary">View</button> <button class="btn btn-sm btn-outline-success">Renew</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td><div class="d-flex align-items-center"><div class="policy-icon bg-success-subtle text-success rounded-2 me-2" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-heart"></i></div><span>Term Life Insurance</span></div></td>
-                                            <td><small>LIF/2023/456123</small></td>
-                                            <td>₹12,000/yr</td>
-                                            <td>Jun 20, 2024</td>
-                                            <td><span class="badge bg-warning">Renewal Due</span></td>
-                                            <td><button class="btn btn-sm btn-outline-primary">View</button> <button class="btn btn-sm btn-outline-success">Renew</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div class="card-body">
+                            <form id="profileUpdateForm">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="name" class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" id="name" placeholder="Enter your full name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="phone_number" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phone_number" placeholder="Enter your phone number">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="current_password" class="form-label">Current Password (for password change)</label>
+                                        <input type="password" class="form-control" id="current_password" placeholder="Enter current password">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="new_password" class="form-label">New Password (optional)</label>
+                                        <input type="password" class="form-control" id="new_password" placeholder="Enter new password">
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="button" class="btn btn-primary" id="updateProfileBtn">
+                                            <i class="fas fa-save me-2"></i>Update Profile
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- My Policies Section -->
+                    <div class="card border-0 shadow-sm mt-4 account-section" id="policies-section">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0"><i class="fas fa-file-alt me-2"></i>My Policies</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="customer-policies-container">
+                                <!-- Customer policies will be loaded here -->
+                                <div class="text-center py-4">
+                                    <i class="fas fa-spinner fa-spin fa-2x text-primary mb-3"></i>
+                                    <p class="text-muted">Loading your policies...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- My Claims Section -->
+                    <div class="card border-0 shadow-sm mt-4 account-section" id="claims-section" style="display: none;">
+                        <div class="card-header bg-warning text-white">
+                            <h5 class="mb-0"><i class="fas fa-file me-2"></i>My Claims</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center py-4">
+                                <i class="fas fa-file-alt fa-3x text-muted mb-3"></i>
+                                <h5 class="text-muted">Claims Management</h5>
+                                <p class="text-muted">View and manage your insurance claims here.</p>
+                                <a href="claims.html" class="btn btn-primary">Go to Claims Page</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment History Section -->
+                    <div class="card border-0 shadow-sm mt-4 account-section" id="payments-section" style="display: none;">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="fas fa-credit-card me-2"></i>Payment History</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center py-4">
+                                <i class="fas fa-credit-card fa-3x text-muted mb-3"></i>
+                                <h5 class="text-muted">Payment History</h5>
+                                <p class="text-muted">View your payment history and receipts.</p>
+                                <p class="text-muted small">This feature is coming soon.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings Section -->
+                    <div class="card border-0 shadow-sm mt-4 account-section" id="settings-section" style="display: none;">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0"><i class="fas fa-cog me-2"></i>Settings</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center py-4">
+                                <i class="fas fa-cog fa-3x text-muted mb-3"></i>
+                                <h5 class="text-muted">Account Settings</h5>
+                                <p class="text-muted">Manage your account preferences and settings.</p>
+                                <p class="text-muted small">This feature is coming soon.</p>
                             </div>
                         </div>
                     </div>
@@ -232,14 +290,59 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Config Script -->
+    <script src="config.js"></script>
+    
     <script src="auth-manager.js"></script>
+    <script src="account-manager.js"></script>
     <script>
         // Require authentication
         authManager.requireAuth();
-        
+
         // Display user info
         authManager.displayUserInNavbar();
+
+        // Account section navigation
+        function showAccountSection(sectionName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.account-section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Remove active class from all sidebar items
+            const sidebarItems = document.querySelectorAll('.list-group-item');
+            sidebarItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Show selected section
+            const targetSection = document.getElementById(sectionName + '-section');
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            }
+
+            // Add active class to clicked sidebar item
+            if (event && event.target) {
+                const clickedItem = event.target.closest('.list-group-item');
+                if (clickedItem) {
+                    clickedItem.classList.add('active');
+                }
+            }
+        }
+
+        // Handle URL hash for direct navigation
+        window.addEventListener('load', function() {
+            const hash = window.location.hash.substring(1);
+            if (hash === 'policies') {
+                showAccountSection('policies');
+            } else {
+                showAccountSection('profile'); // Default to profile
+            }
+        });
     </script>
+    <script src="customer-policy-manager.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

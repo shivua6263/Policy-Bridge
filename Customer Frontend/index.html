@@ -67,7 +67,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="policies.html">
+                                <a class="dropdown-item" href="account.html#policies">
                                     <i class="fas fa-file-alt me-2"></i> My Policies
                                 </a>
                             </li>
@@ -143,68 +143,7 @@
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="py-5 features-section">
-        <div class="container">
-            <div class="row text-center mb-5">
-                <div class="col-12">
-                    <span class="badge bg-primary-subtle text-primary mb-3 px-3 py-2">Why Choose Us</span>
-                    <h2 class="fw-bold display-5">Why Choose Policy Bridge?</h2>
-                    <p class="text-muted lead">We make insurance simple, transparent, and accessible</p>
-                </div>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm feature-card">
-                        <div class="card-body text-center p-4">
-                            <div class="feature-icon bg-primary bg-gradient text-white rounded-3 mb-3">
-                                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=80&h=80&fit=crop&crop=center" 
-                                     alt="Best Prices" 
-                                     class="rounded-3 feature-img">
-                            </div>
-                            <h4 class="card-title">Best Prices</h4>
-                            <p class="card-text text-muted">Compare prices from 20+ insurers and get the best deal with our price match guarantee</p>
-                            <div class="feature-arrow">
-                                <i class="fas fa-arrow-right text-primary"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm feature-card">
-                        <div class="card-body text-center p-4">
-                            <div class="feature-icon bg-success bg-gradient text-white rounded-3 mb-3">
-                                <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=80&h=80&fit=crop&crop=center" 
-                                     alt="Secure & Trusted" 
-                                     class="rounded-3 feature-img">
-                            </div>
-                            <h4 class="card-title">Secure & Trusted</h4>
-                            <p class="card-text text-muted">100% secure process with ISO 27001 certification and trusted insurance partners</p>
-                            <div class="feature-arrow">
-                                <i class="fas fa-arrow-right text-success"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm feature-card">
-                        <div class="card-body text-center p-4">
-                            <div class="feature-icon bg-info bg-gradient text-white rounded-3 mb-3">
-                                <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=80&h=80&fit=crop&crop=center" 
-                                     alt="24/7 Support" 
-                                     class="rounded-3 feature-img">
-                            </div>
-                            <h4 class="card-title">24/7 Support</h4>
-                            <p class="card-text text-muted">Our experts are available round the clock to help you with claims and queries</p>
-                            <div class="feature-arrow">
-                                <i class="fas fa-arrow-right text-info"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 
     <!-- Policy Categories Section -->
     <section class="py-5 bg-light" id="policy-categories">
@@ -239,7 +178,7 @@
                 </div>
                 
                 <!-- Consult with Agent Card -->
-                <div class="col-md-4 col-lg-4">
+                <div class="col-md-4 col-lg-4" id="consult-agent-card">
                     <a href="agents.html" class="service-card text-decoration-none">
                         <div class="card h-100 border-0 shadow-sm service-card-inner">
                             <div class="card-img-top-wrapper">
@@ -341,6 +280,131 @@
                             </div>
                         </div>
                     </a>
+                </div>
+
+                <!-- Agent Dashboard Card (Agent Only) -->
+                <div class="col-md-4 col-lg-4 agent-feature" id="agent-dashboard-card" style="display: none;">
+                    <a href="agent-dashboard.html" class="service-card text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm service-card-inner">
+                            <div class="card-img-top-wrapper">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop" 
+                                     class="card-img-top" 
+                                     alt="Agent Dashboard">
+                            </div>
+                            <div class="card-body text-center p-4">
+                                <div class="service-icon bg-primary bg-gradient text-white rounded-3 mb-3">
+                                    <i class="fas fa-tachometer-alt fa-2x p-3"></i>
+                                </div>
+                                <h4 class="card-title text-dark">Agent Dashboard</h4>
+                                <p class="card-text text-muted">View your performance metrics, commission earnings, and manage your customer portfolio</p>
+                                <span class="btn btn-outline-primary mt-2">View Dashboard <i class="fas fa-arrow-right ms-1"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Manage Customers Card (Agent Only) -->
+                <div class="col-md-4 col-lg-4 agent-feature" id="manage-customers-card" style="display: none;">
+                    <a href="manage-customers.html" class="service-card text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm service-card-inner">
+                            <div class="card-img-top-wrapper">
+                                <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=200&fit=crop" 
+                                     class="card-img-top" 
+                                     alt="Manage Customers">
+                            </div>
+                            <div class="card-body text-center p-4">
+                                <div class="service-icon bg-success bg-gradient text-white rounded-3 mb-3">
+                                    <i class="fas fa-users fa-2x p-3"></i>
+                                </div>
+                                <h4 class="card-title text-dark">Manage Customers</h4>
+                                <p class="card-text text-muted">Add new customers, view customer details, and track their policy purchases</p>
+                                <span class="btn btn-outline-success mt-2">Manage Customers <i class="fas fa-arrow-right ms-1"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Commission Tracker Card (Agent Only) -->
+                <div class="col-md-4 col-lg-4 agent-feature" id="commission-tracker-card" style="display: none;">
+                    <a href="commission-tracker.html" class="service-card text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm service-card-inner">
+                            <div class="card-img-top-wrapper">
+                                <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=400&h=200&fit=crop" 
+                                     class="card-img-top" 
+                                     alt="Commission Tracker">
+                            </div>
+                            <div class="card-body text-center p-4">
+                                <div class="service-icon bg-warning bg-gradient text-white rounded-3 mb-3">
+                                    <i class="fas fa-coins fa-2x p-3"></i>
+                                </div>
+                                <h4 class="card-title text-dark">Commission Tracker</h4>
+                                <p class="card-text text-muted">Monitor your commission earnings, view payment history, and track performance bonuses</p>
+                                <span class="btn btn-outline-warning mt-2">View Commissions <i class="fas fa-arrow-right ms-1"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Features Section -->
+    <section class="py-5 features-section">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12">
+                    <span class="badge bg-primary-subtle text-primary mb-3 px-3 py-2">Why Choose Us</span>
+                    <h2 class="fw-bold display-5">Why Choose Policy Bridge?</h2>
+                    <p class="text-muted lead">We make insurance simple, transparent, and accessible</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon bg-primary bg-gradient text-white rounded-3 mb-3">
+                                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=80&h=80&fit=crop&crop=center" 
+                                     alt="Best Prices" 
+                                     class="rounded-3 feature-img">
+                            </div>
+                            <h4 class="card-title">Best Prices</h4>
+                            <p class="card-text text-muted">Compare prices from 20+ insurers and get the best deal with our price match guarantee</p>
+                            <div class="feature-arrow">
+                                <i class="fas fa-arrow-right text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon bg-success bg-gradient text-white rounded-3 mb-3">
+                                <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=80&h=80&fit=crop&crop=center" 
+                                     alt="Secure & Trusted" 
+                                     class="rounded-3 feature-img">
+                            </div>
+                            <h4 class="card-title">Secure & Trusted</h4>
+                            <p class="card-text text-muted">100% secure process with ISO 27001 certification and trusted insurance partners</p>
+                            <div class="feature-arrow">
+                                <i class="fas fa-arrow-right text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon bg-info bg-gradient text-white rounded-3 mb-3">
+                                <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=80&h=80&fit=crop&crop=center" 
+                                     alt="24/7 Support" 
+                                     class="rounded-3 feature-img">
+                            </div>
+                            <h4 class="card-title">24/7 Support</h4>
+                            <p class="card-text text-muted">Our experts are available round the clock to help you with claims and queries</p>
+                            <div class="feature-arrow">
+                                <i class="fas fa-arrow-right text-info"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -572,9 +636,49 @@
                 window.location.href = 'login.html';
             }
         }
+
+        // Handle user type specific content
+        document.addEventListener('DOMContentLoaded', function() {
+            const authManager = new AuthManager();
+            
+            if (authManager.isLoggedIn()) {
+                const userType = authManager.getUserType();
+                
+                if (userType === 'agent') {
+                    // Hide "Consult with Agent" card for agents
+                    const consultAgentCard = document.getElementById('consult-agent-card');
+                    if (consultAgentCard) {
+                        consultAgentCard.style.display = 'none';
+                    }
+                    
+                    // Show agent-specific cards
+                    const agentCards = document.querySelectorAll('.agent-feature');
+                    agentCards.forEach(card => {
+                        card.style.display = 'block';
+                    });
+                    
+                    // Update hero section for agents
+                    const heroTitle = document.querySelector('.hero-content h1');
+                    const heroText = document.querySelector('.hero-content p');
+                    
+                    if (heroTitle) {
+                        heroTitle.textContent = 'Welcome to Your Agent Portal';
+                    }
+                    
+                    if (heroText) {
+                        heroText.textContent = 'Manage your customers, track commissions, and grow your business with our comprehensive agent tools.';
+                    }
+                }
+            }
+        });
     </script>
     
+    <!-- Config Script -->
+    <script src="config.js"></script>
+    
     <!-- Custom JavaScript -->
+    <script src="auth-manager.js"></script>
+    <script src="home-manager.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

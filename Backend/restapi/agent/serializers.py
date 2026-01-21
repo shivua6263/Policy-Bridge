@@ -34,7 +34,7 @@ class AgentSignupSerializer(serializers.ModelSerializer):
     """Serializer for agent signup"""
     class Meta:
         model = Agent
-        fields = ['name', 'email', 'password', 'phone_number']
+        fields = ['name', 'email', 'password', 'phone_number', 'referral_code', 'commission_percentage']
     
     def create(self, validated_data):
         """Hash password when creating agent"""

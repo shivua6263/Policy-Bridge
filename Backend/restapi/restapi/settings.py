@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "corsheaders",
+    "channels",
     "user",
     "customer",
     "agent",
@@ -47,6 +48,8 @@ INSTALLED_APPS = [
     "insurancetype",
     "plan",
     "policy",
+    "claims",
+    "supportticket",
 ]
 
 MIDDLEWARE = [
@@ -142,6 +145,20 @@ CACHES = {
     }
 }
 
+# Channels configuration for WebSocket support
+ASGI_APPLICATION = 'restapi.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        # For production, use Redis:
+        # 'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        # 'CONFIG': {
+        #     "hosts": [('127.0.0.1', 6379)],
+        # },
+    },
+}
+
 # Telegram Bot Configuration
 # You'll set TELEGRAM_BOT_TOKEN as an environment variable
 import os
@@ -158,4 +175,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
     "http://0.0.0.0:8080",
     "http://127.0.0.1:8080",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
+    "http://0.0.0.0:5500",
 ]

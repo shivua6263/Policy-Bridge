@@ -37,7 +37,7 @@ class CustomerAPI(APIView):
         except Customer.DoesNotExist:
             return Response({"error": "Not Found"}, status=status.HTTP_404_NOT_FOUND)
         
-        serializer = CustomerSerializer(user, data=request.data)
+        serializer = CustomerSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
